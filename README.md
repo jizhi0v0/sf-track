@@ -24,6 +24,17 @@ http://localhost:3000/sf-track?token=dev-token-change-me
 
 首次访问会换成 HttpOnly session cookie，并重定向到不带 token 的 `/sf-track`。
 
+### 前端演示数据
+
+直接运行 Vite 开发服务器时，页面会自动填入 3 个演示运单，方便截图和调 UI：
+
+```bash
+cd frontend
+npm run dev
+```
+
+打开 `http://localhost:5173/sf-track` 即可看到假物流轨迹。该演示数据只在 `import.meta.env.DEV` 为真时启用，生产构建仍保持真实查询流程。
+
 ## 测试
 
 ```bash

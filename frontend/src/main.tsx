@@ -61,15 +61,110 @@ type PushState =
   | { type: "denied" }
   | { type: "error"; message: string };
 
+const DEMO_PHONE_LAST4 = "4821";
+const DEMO_SHIPMENTS: Shipment[] = [
+  {
+    mailNo: "SF0213844341359",
+    routes: [
+      {
+        acceptTime: "2026-06-29 16:42:16",
+        acceptAddress: "上海市",
+        remark: "快件已发往 【北京市顺义中转场】，预计明日送达",
+        opCode: "8000",
+      },
+      {
+        acceptTime: "2026-06-29 13:18:05",
+        acceptAddress: "上海市",
+        remark: "快件到达 【上海虹桥转运中心】",
+        opCode: "70",
+      },
+      {
+        acceptTime: "2026-06-29 09:56:33",
+        acceptAddress: "杭州市",
+        remark: "快件已发往 【上海虹桥转运中心】",
+        opCode: "54",
+      },
+      {
+        acceptTime: "2026-06-29 08:12:47",
+        acceptAddress: "杭州市",
+        remark: "顺丰速运 已收取快件",
+        opCode: "50",
+      },
+    ],
+  },
+  {
+    mailNo: "SF1187093268452",
+    routes: [
+      {
+        acceptTime: "2026-06-29 15:27:44",
+        acceptAddress: "广州市",
+        remark: "快件正在派送途中，请保持电话畅通",
+        opCode: "90",
+      },
+      {
+        acceptTime: "2026-06-29 11:21:10",
+        acceptAddress: "广州市",
+        remark: "快件已到达 【广州天河营业点】",
+        opCode: "80",
+      },
+      {
+        acceptTime: "2026-06-28 22:48:36",
+        acceptAddress: "深圳市",
+        remark: "快件已发往 【广州市天河区】",
+        opCode: "54",
+      },
+      {
+        acceptTime: "2026-06-28 18:05:19",
+        acceptAddress: "深圳市",
+        remark: "顺丰速运 已揽收",
+        opCode: "50",
+      },
+    ],
+  },
+  {
+    mailNo: "SF9036728150417",
+    routes: [
+      {
+        acceptTime: "2026-06-29 14:03:58",
+        acceptAddress: "成都市",
+        remark: "快件已发往 【重庆市渝北中转场】",
+        opCode: "54",
+      },
+      {
+        acceptTime: "2026-06-29 10:32:09",
+        acceptAddress: "成都市",
+        remark: "快件已到达 【成都双流中转中心】",
+        opCode: "70",
+      },
+      {
+        acceptTime: "2026-06-28 19:16:25",
+        acceptAddress: "绵阳市",
+        remark: "顺丰速运 已收取快件",
+        opCode: "50",
+      },
+    ],
+  },
+];
+
+const shouldUseDemoData = import.meta.env.DEV;
+const initialDemoShipment = shouldUseDemoData ? DEMO_SHIPMENTS[0] : null;
+
 function App() {
-  const [waybillNo, setWaybillNo] = React.useState("");
-  const [phoneLast4, setPhoneLast4] = React.useState("");
-  const [queryState, setQueryState] = React.useState<QueryState>({ type: "idle" });
-  const [resumedShipments, setResumedShipments] = React.useState<Shipment[]>([]);
+  const [waybillNo, setWaybillNo] = React.useState(initialDemoShipment?.mailNo ?? "");
+  const [phoneLast4, setPhoneLast4] = React.useState(shouldUseDemoData ? DEMO_PHONE_LAST4 : "");
+  const [queryState, setQueryState] = React.useState<QueryState>(
+    initialDemoShipment
+      ? { type: "success", mailNo: initialDemoShipment.mailNo, routes: initialDemoShipment.routes }
+      : { type: "idle" },
+  );
+  const [resumedShipments, setResumedShipments] = React.useState<Shipment[]>(
+    shouldUseDemoData ? DEMO_SHIPMENTS : [],
+  );
 
   const canSubmit = waybillNo.trim().length > 0 && /^\d{4}$/.test(phoneLast4.trim());
   const summary = buildSummary(queryState, waybillNo);
   const activeFromResume =
+    !shouldUseDemoData &&
     queryState.type === "success" &&
     resumedShipments.some((shipment) => shipment.mailNo === queryState.mailNo);
 
