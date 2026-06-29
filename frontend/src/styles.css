@@ -258,6 +258,18 @@ button {
   color: #1f6b43;
 }
 
+.preview-notice {
+  margin: -8px 0 20px;
+  padding: 10px 12px;
+  border: 1px solid #d9dee7;
+  border-radius: 8px;
+  background: #fbfcff;
+  color: #59616f;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
 .push-panel {
   display: flex;
   align-items: center;

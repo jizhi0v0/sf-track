@@ -2,6 +2,8 @@
 
 ![顺丰轨迹查询预览](docs/preview.jpg)
 
+预览图为开发预览模式下的单票示例轨迹，真实轨迹需通过顺丰开放平台查询。
+
 Rust 后端代理顺丰开放平台，React 页面只提交运单号和手机号后四位。顺丰 `PARTNER_ID` / `CHECK_WORD` 只从服务端环境变量读取，不会进入前端构建产物。
 
 ## 本地启动
@@ -26,16 +28,13 @@ http://localhost:3000/sf-track?token=dev-token-change-me
 
 首次访问会换成 HttpOnly session cookie，并重定向到不带 token 的 `/sf-track`。
 
-### 前端演示数据
-
-直接运行 Vite 开发服务器时，页面会自动填入 3 个演示运单，方便截图和调 UI：
+生成 README 预览图时可以使用开发预览模式：
 
 ```bash
 cd frontend
 npm run dev
+# 打开 http://localhost:5173/sf-track?preview=1
 ```
-
-打开 `http://localhost:5173/sf-track` 即可看到假物流轨迹。该演示数据只在 `import.meta.env.DEV` 为真时启用，生产构建仍保持真实查询流程。
 
 ## 测试
 
