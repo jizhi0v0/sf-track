@@ -1,0 +1,8 @@
+SF_PARTNER_ID=replace-with-customer-code
+SF_CHECK_WORD=replace-with-check-code
+# 格式 token:过期时间:最大次数，过期或次数写 * 表示不限制（如 token:*:* 永久不限次）
+TRACKING_ACCESS_TOKENS=dev-token-change-me:2026-12-31T23:59:59Z:20
+SESSION_SECRET=replace-with-32-byte-random-secret
+PUSH_DATA_SECRET=replace-with-another-32-byte-random-secret
+VAPID_PUBLIC_KEY=replace-with-generated-public-key
+VAPID_PRIVATE_KEY=replace-with-generated-private-key

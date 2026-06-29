@@ -1,0 +1,24 @@
+name = "sf-track-push"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+
+[assets]
+directory = "../frontend/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = ["/sf-track", "/api/*"]
+
+[[kv_namespaces]]
+binding = "SF_TRACK_KV"
+id = "replace-with-kv-namespace-id"
+
+[triggers]
+crons = ["*/10 * * * *"]
+
+[vars]
+BIND_NOTE = "Set secrets with wrangler secret put; do not put real SF credentials here."
+SF_ENV = "production"
+SF_API_BASE_URL = "https://sfapi.sf-express.com/std/service"
+SESSION_TTL_SECONDS = "1800"
+SESSION_COOKIE_SECURE = "true"
+VAPID_SUBJECT = "mailto:admin@example.com"

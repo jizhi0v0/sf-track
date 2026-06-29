@@ -1,0 +1,12 @@
+/target
+/frontend/node_modules
+/frontend/dist
+/frontend/tsconfig.tsbuildinfo
+/cf-worker/node_modules
+/cf-worker/dist-worker
+/cf-worker/.wrangler
+/cf-worker/.dev.vars
+/.env
+*.tsbuildinfo
+*.log
+.DS_Store
